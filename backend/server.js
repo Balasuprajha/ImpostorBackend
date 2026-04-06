@@ -10,6 +10,7 @@ const io = socketIo(server, {
   cors: {
     origin: 'https://impostor-rosy.vercel.app',
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 
