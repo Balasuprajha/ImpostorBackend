@@ -8,9 +8,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'https://impostor-rosy.vercel.app',
+    origin: [
+      'https://impostor-rosy.vercel.app',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ],
     methods: ['GET', 'POST'],
     credentials: true,
+    allowEIO3: true,
   },
 });
 
@@ -263,6 +268,8 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`🎭 Word Impostor Server running on port ${PORT}`);
 });
+
+module.exports = app;
