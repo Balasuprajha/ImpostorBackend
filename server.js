@@ -17,6 +17,9 @@ const io = socketIo(server, {
     credentials: true,
     allowEIO3: true,
   },
+  transports: ['websocket', 'polling'],
+  pingInterval: 25000,
+  pingTimeout: 20000,
 });
 
 app.use(cors());

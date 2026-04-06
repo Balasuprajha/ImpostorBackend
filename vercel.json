@@ -2,18 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "./server.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "50mb",
-        "runtime": "nodejs18.x"
-      }
+      "src": "server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "./server.js"
+      "dest": "server.js"
     }
   ]
 }
