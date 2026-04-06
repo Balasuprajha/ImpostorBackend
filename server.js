@@ -6,6 +6,20 @@ require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
+
+// CORS middleware
+app.use(cors({
+  origin: [
+    'https://impostor-rosy.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001',
+  ],
+  credentials: true,
+}));
+
+app.use(express.json());
+
+// Socket.io configuration
 const io = socketIo(server, {
   cors: {
     origin: [
@@ -15,12 +29,18 @@ const io = socketIo(server, {
     ],
     methods: ['GET', 'POST'],
     credentials: true,
+    allowEIO3: true,
   },
   transports: ['polling'],
+  maxHttpBufferSize: 1e6,
+  pingInterval: 25000,
+  pingTimeout: 20000,
 });
 
-app.use(cors());
-app.use(express.json());
+// Serve socket.io client
+app.use(express.static('node_modules/socket.io/client-dist', {
+  maxAge: '1d',
+}));
 
 // Game state storage
 const games = {}; // gameId -> gameState
